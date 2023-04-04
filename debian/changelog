@@ -1,6 +1,7 @@
 seeddms-client (0.0.3-1) unstable; urgency=medium
 
-  * new upstream release (add man page, licenѕe, changes)
+  * new upstream release (add man page, licenѕe, changes, better error
+    handling)
 
  -- Uwe Steinmann <steinm@debian.org>  Tue, 04 Apr 2023 11:04:51 +0200
 
