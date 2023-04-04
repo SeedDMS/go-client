@@ -1,0 +1,95 @@
+seeddms-client(1) -- list, upload, download from SeedDMS
+========================================================
+
+## SYNOPSIS
+
+`seeddms-client` [<options>] <command>
+
+## DESCRIPTION
+
+This program connects to a SeedDMS server and can list,
+download and upload documents. It uses the RestAPI provided by SeedDMS.
+
+The program can be fully configured with command line options but
+usually it is much more convenient to write the basic configuration
+into a file named `.seeddms-client.yaml` in your home directory. This
+also prevents sensitive data like a password or api key to enter your
+shell's history. Such a file may have different sections. Each
+sections contains the configuration for a specific profile. Such a
+profile usually addresses a single SeedDMS installation.
+There must be at least one section named `default`.  Further sections
+may be named arbitrary. Use the flag `--profile` to select the
+configuration of a specific section. Below is an example of the
+`default` section.
+
+## COMMANDS
+
+  * `help`:
+    Help about any command
+
+  * `ls` [<folder-id>]:
+    List documents and folders of a given parent folder
+
+  * `get`:
+    Download a document
+
+  * `upload`:
+    Upload file and create new document
+
+  * `autoupload`:
+    Monitors local directory and uploads new files
+
+  * `completion`:
+    Generate the autocompletion script for the specified shell
+
+## OPTIONS
+
+  * `-k`, `--apikey string`:
+    Set api key
+
+  * `-c`, `--config string`:
+    Set path to config file, defaults to `~/.seeddms-client.yaml`
+
+  * `-h`, `--help`:
+    Help for seeddms-client
+
+  * `-p string`, `--password string`:
+    Set password if not using an api key
+
+  * `--profile string`:
+    Select section in configuration, defaults to `default`
+
+  * `-q`, `--quiet`:
+    Be quiet
+
+  * `--url string`:
+    URL to REST Api
+
+  * `-u string`, `--user string`:
+    User name if not using an api key (default "admin")
+
+  * `-v`, `--version`:
+    Show version of seeddms-client
+
+## EXAMPLE
+
+Below is a portion of the configuration file which defines the
+default profile.
+
+    default:
+      Url: https://domain/restapi/index.php
+      ApiKey: <your secret api key>
+      Upload:
+        Folder: 8345
+      Ls:
+        Folder: 1
+
+It sets the url and credentials of your SeedDMS installation and
+also different folders for the `upload` and `ls` commands.
+
+With the above configuration the command
+
+  `seeddms-client ls`
+
+will list the subfolders and documents of the folder with id 1.
+If a file is uploaded it will be stored into folder with id 8345.
