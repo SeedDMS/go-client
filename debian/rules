@@ -3,6 +3,14 @@
 %:
 	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
 
+override_dh_auto_build:
+	ronn --roff seeddms-client.1.ronn
+	dh_auto_build
+
+override_dh_clean:
+	rm -f seeddms-client.1
+	dh_clean
+
 override_dh_auto_install:
 	dh_auto_install
 	mv $(CURDIR)/debian/seeddms-client/usr/bin/client $(CURDIR)/debian/seeddms-client/usr/bin/seeddms-client
