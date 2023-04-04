@@ -6,5 +6,5 @@ package main
 import "seeddms.org/seeddms/client/cmd"
 
 func main() {
-	cmd.Execute()
+    cmd.Execute()
 }
