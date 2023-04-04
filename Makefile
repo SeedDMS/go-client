@@ -1,5 +1,5 @@
 PKGNAME=seeddms-client
-VERSION=0.0.2
+VERSION=0.0.3
 
 GOCMD=go
 GOBUILD=$(GOCMD) build
@@ -30,7 +30,7 @@ run:
 dist: clean
 	rm -rf ${PKGNAME}-${VERSION}
 	mkdir ${PKGNAME}-${VERSION}
-	cp -r cmd config assets *.go resources Makefile README.md seeddms-client.yaml go.mod go.sum ${PKGNAME}-${VERSION}
+	cp -r cmd config assets *.go resources Makefile README.md CHANGES LICENSE seeddms-client.1.ronn seeddms-client.yaml go.mod go.sum ${PKGNAME}-${VERSION}
 	tar czvf ${PKGNAME}-${VERSION}.tar.gz ${PKGNAME}-${VERSION}
 	rm -rf ${PKGNAME}-${VERSION}
 
