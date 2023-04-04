@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=SeedDMS Client (Autoupload)
+Comment=Client for auto uploading files into SeedDMS using the default profile
+Categories=Network;System;
+Type=Application
+Terminal=true
+Icon=seeddms
+Exec=seeddms-client autoupload %f

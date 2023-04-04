@@ -1,0 +1,15 @@
+default:
+  Url: http://seeddms-domain/restapi/index.php
+  ApiKey: secretkey
+  Upload:
+    Folder: 1
+
+flameshot:
+  Url: http://seeddms-domain/restapi/index.php
+  ApiKey: secretkey
+  Upload:
+    Folder: 8542
+    Comment: Uploaded by flameshot
+  Ls:
+    Folder: 8542
+

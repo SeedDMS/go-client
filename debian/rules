@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
+
+override_dh_auto_install:
+	dh_auto_install
+	mv $(CURDIR)/debian/seeddms-client/usr/bin/client $(CURDIR)/debian/seeddms-client/usr/bin/seeddms-client
+	mkdir -p $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/scalable/apps
+	cp $(CURDIR)/resources/seeddms.svg $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/scalable/apps
+	mkdir -p $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/48x48/apps
+	cp $(CURDIR)/resources/seeddms-48.png $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/48x48/apps
+	mkdir -p $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/128x128/apps
+	cp $(CURDIR)/resources/seeddms-128.png $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/128x128/apps
+	mkdir -p $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/256x256/apps
+	cp $(CURDIR)/resources/seeddms-256.png $(CURDIR)/debian/seeddms-client/usr/share/icons/hicolor/256x256/apps
+	mkdir -p $(CURDIR)/debian/seeddms-client/usr/share/applications
+	cp $(CURDIR)/resources/org.seeddms.client.upload.desktop $(CURDIR)/debian/seeddms-client/usr/share/applications
+	cp $(CURDIR)/resources/org.seeddms.client.autoupload.desktop $(CURDIR)/debian/seeddms-client/usr/share/applications

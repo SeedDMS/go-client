@@ -1,0 +1,11 @@
+seeddms-client (0.0.2-1) unstable; urgency=medium
+
+  * add command autoupload
+
+ -- Uwe Steinmann <steinm@debian.org>  Tue, 24 Jan 2023 10:10:59 +0100
+
+seeddms-client (0.0.1-1) unstable; urgency=medium
+
+  * First Debian release.
+
+ -- Uwe Steinmann <steinm@debian.org>  Sun, 16 Jan 2022 16:27:44 +0100
