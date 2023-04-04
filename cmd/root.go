@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"os"
+//	"fmt"
 
 	"github.com/spf13/cobra"
     "seeddms.org/seeddms/client/config"
@@ -127,6 +128,7 @@ will list the subfolders and documents of the folder with id 1
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
+//        fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }

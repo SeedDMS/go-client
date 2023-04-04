@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"fmt"
+	"errors"
     "os"
     "path"
     "seeddms.org/seeddms/apiclient"
@@ -20,21 +21,21 @@ var uploadCmd = &cobra.Command{
 	Long: `The upload command will upload any local file into SeedDMS and create
 a new document.
 `,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
         file := ""
         var err error
         if len(args) > 0 {
             file = path.Base(args[0])
         } else {
             fmt.Println("Need to pass a file to be uploaded")
-            return
+            return errors.New("Need to pass a file to be uploaded")
         }
         c := apiclient.Connect(cfg.Url, cfg.ApiKey)
 
         _, err = c.Login(cfg.User, cfg.Password)
         if err != nil {
             fmt.Println("Failed to login")
-            return
+            return err
         }
         if comment == "" {
             comment = cfg.Upload.Comment
@@ -47,7 +48,7 @@ a new document.
         f, err := os.Open(args[0])
         if err != nil {
             fmt.Println("Cannot open file")
-            return
+            return err
         }
         defer f.Close()
 
@@ -56,12 +57,12 @@ a new document.
         }
         if folderid == 0 {
             fmt.Println("Target folder not set")
-            return
+            return errors.New("Target folder not set")
         }
         res, err := c.Upload(f, extraParams, folderid)
         if err != nil {
             fmt.Println(err)
-            return
+            return err
         }
         if !quiet {
             var notify *notificator.Notificator
@@ -72,6 +73,7 @@ a new document.
 
             notify.Push("Document uploaded", fmt.Sprintf("Document with Id=%d uploaded", res.Data.Id), "/usr/share/seeddms-client/icons/warning.png", notificator.UR_CRITICAL)
         }
+        return nil
 	},
 }
 

@@ -28,7 +28,7 @@ Each line of the output consists of three columns:
 2. the id of the folder or document
 3. the name of the folder or document
 `,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
         rootid := 1
         if folderid != 0 {
             rootid = folderid
@@ -44,13 +44,13 @@ Each line of the output consists of three columns:
 
         _, err = c.Login(cfg.User, cfg.Password)
         if err != nil {
-            fmt.Printf("Failed to login: %s\n", err)
-            return
+//            fmt.Printf("Failed to login: %s\n", err)
+            return err
         }
 
         res, err := c.Children(rootid)
         if err != nil {
-            return
+            return err
         }
 
         for _, row := range res.Data {
@@ -61,6 +61,7 @@ Each line of the output consists of three columns:
             }
             fmt.Printf(" %5d %s\n", row.Id, row.Name);
         }
+        return nil
 	},
 }
 

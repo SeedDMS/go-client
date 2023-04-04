@@ -32,7 +32,7 @@ document. It can be provided by the option --document or as another
 argument. If that id is not passed on the command line it will be
 read from the configuration file.
 `,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
         docid := 0
         var err error
         if documentid != 0 {
@@ -46,20 +46,20 @@ read from the configuration file.
         _, err = c.Login(cfg.User, cfg.Password)
         if err != nil {
             fmt.Println("Failed to login")
-            return
+            return err
         }
 
         res, err := c.Document(docid)
         if err != nil {
             fmt.Println("Failed to get metadata of document", docid)
-            return
+            return err
         }
         fmt.Println(res.Data.Origfilename);
 
         body, err := c.Content(docid)
         if err != nil {
             fmt.Println("Failed to get content of document", docid)
-            return
+            return err
         }
 
         if(filename == "") {
@@ -68,17 +68,18 @@ read from the configuration file.
         destination, err := os.Create(filename)
         if err != nil {
             fmt.Println("Failed to create file")
-            return
+            return err
         }
         nBytes, err := io.Copy(destination, body)
         if err != nil {
             fmt.Println("Failed to write file")
-            return
+            return err
         }
         fmt.Println(nBytes, "Bytes written to", filename)
 
 //        content, err := ioutil.ReadAll(body)
        // io.Copy(os.Stdout, body)
+       return nil
 	},
 }
 

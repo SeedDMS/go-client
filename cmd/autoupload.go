@@ -7,6 +7,7 @@ package cmd
 import (
     "log"
 	"fmt"
+	"errors"
     "os"
     "path"
     "time"
@@ -26,21 +27,21 @@ the program is killed. Each new file is uploaded into SeedDMS.
 This command could be used with scanner software like scanservjs to
 monitor the output directory and save any new scan into SeedDMS.
 `,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
         scandir := ""
         var err error
         if len(args) > 0 {
             scandir = args[0]
         } else {
             fmt.Println("Need to pass the directory to be monitored")
-            return
+            return errors.New("Need to pass the directory to be monitored")
         }
         c := apiclient.Connect(cfg.Url, cfg.ApiKey)
 
         _, err = c.Login(cfg.User, cfg.Password)
         if err != nil {
             fmt.Println("Failed to login")
-            return
+            return err
         }
 
         if comment == "" {
@@ -52,14 +53,14 @@ monitor the output directory and save any new scan into SeedDMS.
         }
         if folderid == 0 {
             fmt.Println("Target folder not set")
-            return
+            return errors.New("Target folder not set")
         }
 
         // The watch loop
         watcher, err := fsnotify.NewWatcher()
         if err != nil {
             fmt.Println(err)
-            return
+            return err
         }
         defer watcher.Close()
 
@@ -131,10 +132,11 @@ monitor the output directory and save any new scan into SeedDMS.
         err = watcher.Add(scandir)
         if err != nil {
             log.Println("error: ", err)
-            return
+            return err
         }
         <-done
 
+        return nil
 	},
 }
 
