@@ -15,7 +15,7 @@ Configuration
 -------------
 
 The programm can be configured with command line options, but usually
-uses a configuration file named .seeddms-client.yaml which must be
+uses a configuration file named `.seeddms-client.yaml` which must be
 located in the user's home directory and must follow the yaml syntax.
 This configuration file may
 have several main sections, each containing the options for running the
@@ -74,6 +74,7 @@ comes with a desktop entry being installed in
 /usr/share/applications/org.seeddms.client.upload.desktop
 This could be used as a template for your own more specialized uploads.
 
+```
   [Desktop Entry]
   Name=SeedDMS Client (default profile)
   Comment=Client for uploading files into SeedDMS using the default profile
@@ -82,6 +83,7 @@ This could be used as a template for your own more specialized uploads.
   Terminal=true
   Icon=seeddms
   Exec=seeddms-client upload %f
+```
 
 If for example you would like to upload your invoices into a dedicated
 folder with id=4711, then just make a copy of the above entry into e.g.
